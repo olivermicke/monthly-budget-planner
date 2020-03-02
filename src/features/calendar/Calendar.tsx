@@ -1,79 +1,63 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import styled from 'styled-components';
 import { range } from 'ramda';
+
+import { Box, FormControl, FormLabel, Heading, Select, SimpleGrid } from '@chakra-ui/core';
+
+import { Day } from './Day';
+
+import { changeFirstDayNumber, selectFirstDayNumber } from './calendarSlice';
 
 import { Day as DayType } from './types';
 
-import {
-  changeDaysInMonth,
-  changeFirstDay,
-  selectCalendar
-} from './calendarSlice';
-
-const createMonth = ({
-  firstDay,
-  daysInMonth
-}: {
-  firstDay: DayType;
-  daysInMonth: number;
-}): DayType[] | null =>
-  firstDay <= daysInMonth
-    ? [...range(firstDay, daysInMonth + 1), ...range(1, firstDay)]
-    : null;
+const createMonth = (firstDayNumber: DayType['number']): DayType['number'][] => [
+  ...range(firstDayNumber, 32),
+  ...range(1, firstDayNumber),
+];
 
 export const Calendar = () => {
-  const { daysInMonth, firstDay } = useSelector(selectCalendar);
+  const firstDayNumber = useSelector(selectFirstDayNumber);
   const dispatch = useDispatch();
 
-  const month = createMonth({ firstDay, daysInMonth });
+  const month = createMonth(firstDayNumber);
 
   return (
-    <>
-      <label>
-        Start month at day:
-        <input
-          max='31'
-          min='1'
-          onChange={({ target }) => {
-            dispatch(changeFirstDay(+target.value));
-          }}
-          type='number'
-          value={firstDay}
-        />
-      </label>
-      <label>
-        Number of days:
-        <input
-          max='31'
-          min='28'
-          onChange={({ target }) => {
-            dispatch(changeDaysInMonth(+target.value));
-          }}
-          type='number'
-          value={daysInMonth}
-        />
-      </label>
+    <Box margin='0 0 3rem'>
+      <Heading as='h3' display={['none', 'none', 'block']} margin='0 0 2rem' size='lg'>
+        Calendar
+      </Heading>
 
-      <DaysWrapper>
-        {month ? (
-          month.map(day => <Day key={day}>{day}</Day>)
-        ) : (
-          <p>
-            ERROR: First day of month cannot be higher than the total number of
-            days.
-          </p>
-        )}
-      </DaysWrapper>
-    </>
+      <Box>
+        <Box display='flex' flexDirection={['row']}>
+          <FormControl alignItems='center' display='flex' margin='0 0 2rem'>
+            <FormLabel whiteSpace='nowrap'>First day of month:</FormLabel>
+            <Select
+              onChange={({ target }) => {
+                const nextDayNumber: DayType['number'] = +target.value;
+
+                if (isNaN(nextDayNumber)) {
+                  return;
+                }
+
+                dispatch(changeFirstDayNumber(nextDayNumber));
+              }}
+              value={firstDayNumber}
+            >
+              {range(1, 32).map(dayNumber => (
+                <option key={dayNumber} value={dayNumber}>
+                  {dayNumber}
+                </option>
+              ))}
+            </Select>
+          </FormControl>
+        </Box>
+      </Box>
+
+      <SimpleGrid columns={[3, 3, 7]}>
+        {month.map(dayNumber => (
+          <Day dayNumber={dayNumber} key={dayNumber} />
+        ))}
+      </SimpleGrid>
+    </Box>
   );
 };
-
-const DaysWrapper = styled.div`
-  display: flex;
-  flex-wrap: wrap;
-`;
-
-const Day = styled.div`
-  flex-basis: calc(100% / 7);
-`;

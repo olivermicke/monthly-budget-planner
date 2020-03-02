@@ -1,121 +1,150 @@
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import styled from 'styled-components';
+import { range } from 'ramda';
+import {
+  Box,
+  Button,
+  Checkbox,
+  FormControl,
+  FormHelperText,
+  FormLabel,
+  Heading,
+  Input,
+  NumberInput,
+  NumberInputField,
+  Select,
+} from '@chakra-ui/core';
 
-import { selectDaysInMonth } from '../calendar/calendarSlice';
-import { add } from './transactionsSlice';
+import { addTransaction, selectCurrency } from './transactionsSlice';
+
+import { Transaction } from './types';
 
 const DEFAULT_NAME = '';
-const DEFAULT_AMOUNT = 10.5;
-const DEFAULT_DUE_DAY = 1;
+const DEFAULT_AMOUNT = 31;
+const DEFAULT_DUE_DAY_NUMBER = 1;
 const DEFAULT_IS_DISTRIBUTED_DAILY = false;
-const DEFAULT_IS_OUTGOING = true;
+const DEFAULT_TYPE: Transaction['type'] = 'outgoing';
 
-const INCOMING = 'incoming';
-const OUTGOING = 'outgoing';
+const formItemProps = {
+  marginTop: ['1rem', '1rem', '2rem'],
+};
 
 export const TransactionForm = () => {
-  const daysInMonth = useSelector(selectDaysInMonth);
+  const currency = useSelector(selectCurrency);
+  const dispatch = useDispatch();
 
   const [name, setName] = useState(DEFAULT_NAME);
   const [amount, setAmount] = useState(DEFAULT_AMOUNT);
-  const [dueDay, setDueDay] = useState(DEFAULT_DUE_DAY);
-  const [isDistributedDaily, setIsDistributedDaily] = useState(
-    DEFAULT_IS_DISTRIBUTED_DAILY
-  );
-  const [isOutgoing, setIsOutgoing] = useState(DEFAULT_IS_OUTGOING);
-  const dispatch = useDispatch();
+  const [dueDayNumber, setDueDayNumber] = useState(DEFAULT_DUE_DAY_NUMBER);
+  const [isDistributedDaily, setIsDistributedDaily] = useState(DEFAULT_IS_DISTRIBUTED_DAILY);
+  const [type, setType] = useState<Transaction['type']>(DEFAULT_TYPE);
 
   return (
-    <form
-      onSubmit={event => {
-        event.preventDefault();
+    <Box marginBottom={['2rem', '2rem', 0]}>
+      <form
+        onSubmit={event => {
+          event.preventDefault();
 
-        dispatch(
-          add({
-            amount,
-            dueDay,
-            isDistributedDaily,
-            isOutgoing,
-            name
-          })
-        );
+          dispatch(
+            addTransaction({
+              amount: type === 'incoming' ? amount : -Math.abs(amount),
+              dueDayNumber: isDistributedDaily ? null : dueDayNumber,
+              isDistributedDaily,
+              name,
+              type,
+            }),
+          );
 
-        setAmount(DEFAULT_AMOUNT);
-        setDueDay(DEFAULT_DUE_DAY);
-        setIsDistributedDaily(DEFAULT_IS_DISTRIBUTED_DAILY);
-        setIsOutgoing(DEFAULT_IS_OUTGOING);
-        setName(DEFAULT_NAME);
-      }}
-    >
-      <p>Add a transaction</p>
-      <InputContainer>
-        <label>
-          Name:
-          <input
+          setAmount(DEFAULT_AMOUNT);
+          setDueDayNumber(DEFAULT_DUE_DAY_NUMBER);
+          setIsDistributedDaily(DEFAULT_IS_DISTRIBUTED_DAILY);
+          setName(DEFAULT_NAME);
+          setType(DEFAULT_TYPE);
+        }}
+      >
+        <Heading as='h3' display={['none', 'none', 'block']} size='md'>
+          Add transaction
+        </Heading>
+        <FormControl {...formItemProps}>
+          <FormLabel>Name:</FormLabel>
+          <Input
+            isRequired
+            // @ts-ignore
             onChange={({ target }) => {
               setName(target.value);
             }}
             placeholder='e.g. "Electricity Bill"'
-            required
             type='text'
             value={name}
           />
-        </label>
-        <label>
-          <select
+        </FormControl>
+        <FormControl {...formItemProps}>
+          <FormLabel>Type:</FormLabel>
+          <Select
             onChange={({ target }) => {
-              debugger;
-              setIsOutgoing(target.value === OUTGOING);
+              setType(target.value as Transaction['type']);
             }}
-            value={isOutgoing ? OUTGOING : INCOMING}
+            value={type}
           >
-            <option value={INCOMING}>Incoming</option>
-            <option value={OUTGOING}>Outgoing</option>
-          </select>
-        </label>
-        <label>
-          Amount:
-          <input
-            max={Number.MAX_SAFE_INTEGER}
-            min={0.01}
+            <option value={'incoming'}>Incoming</option>
+            <option value={'outgoing'}>Outgoing</option>
+          </Select>
+        </FormControl>
+        <FormControl {...formItemProps}>
+          <FormLabel>Amount in {currency.symbol}:</FormLabel>
+          <Box display='flex'>
+            <NumberInput
+              flex={1}
+              marginRight='2rem'
+              max={Number.MAX_SAFE_INTEGER}
+              min={0.01}
+              // @ts-ignore
+              onChange={(amount: number) => {
+                setAmount(amount);
+              }}
+              value={amount}
+            >
+              <NumberInputField />
+            </NumberInput>
+            <FormHelperText whiteSpace='nowrap'>e.g. 119.99</FormHelperText>
+          </Box>
+        </FormControl>
+        <FormControl {...formItemProps}>
+          <FormLabel>Due on day:</FormLabel>
+          <Select
+            isDisabled={isDistributedDaily}
             onChange={({ target }) => {
-              setAmount(+target.value);
+              const nextDayNumber: NonNullable<Transaction['dueDayNumber']> = +target.value;
+
+              if (isNaN(nextDayNumber)) {
+                return;
+              }
+
+              setDueDayNumber(nextDayNumber);
             }}
-            step='any'
-            type='number'
-          />
-        </label>
-        <label>
-          Due on day:
-          <input
-            disabled={isDistributedDaily}
-            max={daysInMonth}
-            min='1'
-            onChange={({ target }) => {
-              setDueDay(+target.value);
-            }}
-            required={!isDistributedDaily}
-            type='number'
-            value={dueDay}
-          />
-        </label>
-        <label>
-          Distribute over whole month:
-          <input
+            value={dueDayNumber}
+          >
+            {range(1, 32).map(dayNumber => (
+              <option key={dayNumber} value={dayNumber}>
+                {dayNumber}
+              </option>
+            ))}
+          </Select>
+        </FormControl>
+        <FormControl display='flex' {...formItemProps}>
+          <FormLabel>Distribute over whole month:</FormLabel>
+          <Checkbox
+            isChecked={isDistributedDaily}
             onChange={({ target }) => {
               setIsDistributedDaily(target.checked);
             }}
-            type='checkbox'
+            variantColor='teal'
           />
-        </label>
-        <input type='submit' value='Add' />
-      </InputContainer>
-    </form>
+        </FormControl>
+        <Button type='submit' variant='outline' variantColor='teal' {...formItemProps}>
+          Add
+        </Button>
+      </form>
+    </Box>
   );
 };
-
-const InputContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-`;

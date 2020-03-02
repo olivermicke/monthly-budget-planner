@@ -2,39 +2,56 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 import { RootState } from '../../store';
 
-import { Transaction } from './types';
+import { CURRENCIES } from './constants';
+
+import { Currency, Transaction } from './types';
+import { Day as DayType } from '../calendar/types';
+
+type InitialState = {
+  config: { currency: Currency };
+  transactions: { [key: string]: Transaction };
+};
+
+const initialState: InitialState = {
+  config: {
+    currency: {
+      name: 'Euro',
+      symbol: '€',
+    },
+  },
+  transactions: {},
+};
 
 export const slice = createSlice({
   name: 'transactions',
-  initialState: {} as { [key: string]: Transaction },
+  initialState,
   reducers: {
-    add: (state, action: PayloadAction<Transaction>) => {
-      const {
-        amount,
-        dueDay,
-        isDistributedDaily,
-        name,
-        ...rest
-      } = action.payload;
+    addTransaction: (state, action: PayloadAction<Transaction>) => {
+      const { name, ...rest } = action.payload;
 
       // TODO: Round amount
 
-      state[name] = {
-        amount,
-        dueDay: isDistributedDaily ? null : dueDay,
-        isDistributedDaily,
+      state.transactions[name] = {
         name,
-        ...rest
+        ...rest,
       };
-    }
+    },
     // TODO: add missing actions
     // edit:
     // remove:
-  }
+    changeCurrency: (state, action: PayloadAction<Currency['name']>) => {
+      state.config.currency = CURRENCIES[action.payload];
+    },
+  },
 });
 
-export const selectTransactions = (state: RootState) => state.transactions;
+export const selectCurrency = (state: RootState) => state.transactions.config.currency;
+export const selectTransactions = (state: RootState) => state.transactions.transactions;
+export const selectTransactionsForDay = (state: RootState, dayNumber: DayType['number']) =>
+  Object.values(state.transactions.transactions).filter(
+    ({ dueDayNumber, isDistributedDaily }) => isDistributedDaily || dueDayNumber === dayNumber,
+  );
 
-export const { add } = slice.actions;
+export const { addTransaction, changeCurrency } = slice.actions;
 
 export const reducer = slice.reducer;

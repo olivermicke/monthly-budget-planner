@@ -1,1 +1,4 @@
-export type Day = number;
+export type Day = {
+  balance: number;
+  number: number;
+};

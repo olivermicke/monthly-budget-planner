@@ -1,9 +1,39 @@
 import { Day } from '../calendar/types';
 
+export type Currency =
+  | {
+      name: 'Australian Dollar';
+      symbol: 'AU$';
+    }
+  | {
+      name: 'British Pound';
+      symbol: '£';
+    }
+  | {
+      name: 'Canadian Dollar';
+      symbol: 'CA$';
+    }
+  | {
+      name: 'Euro';
+      symbol: '€';
+    }
+  | {
+      name: 'Japanese Yen';
+      symbol: '¥';
+    }
+  | {
+      name: 'Swiss Franc';
+      symbol: 'CHF';
+    }
+  | {
+      name: 'US Dollar';
+      symbol: '$';
+    };
+
 export type Transaction = {
   amount: number;
-  dueDay: Day | null;
+  dueDayNumber: Day['number'] | null;
   isDistributedDaily: boolean;
-  isOutgoing: boolean;
   name: string;
+  type: 'incoming' | 'outgoing';
 };
