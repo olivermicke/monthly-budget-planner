@@ -1,8 +1,8 @@
 import React from 'react';
 import {
   Box,
-  ColorModeProvider,
   CSSReset,
+  DarkMode,
   Tab,
   TabList,
   TabPanel,
@@ -19,7 +19,7 @@ import { Transactions } from '../features/transactions/Transactions';
 export const App = () => {
   return (
     <ThemeProvider theme={theme}>
-      <ColorModeProvider>
+      <DarkMode>
         <CSSReset />
         <Box minHeight='inherit' padding='2rem'>
           <Box
@@ -52,7 +52,7 @@ export const App = () => {
             </Tabs>
           </Box>
         </Box>
-      </ColorModeProvider>
+      </DarkMode>
     </ThemeProvider>
   );
 };
