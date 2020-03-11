@@ -138,10 +138,10 @@ export const TransactionForm = () => {
             onChange={({ target }) => {
               setIsDistributedDaily(target.checked);
             }}
-            variantColor='teal'
+            variantColor='tealVariant'
           />
         </FormControl>
-        <Button type='submit' variant='outline' variantColor='teal' {...formItemProps}>
+        <Button type='submit' variant='outline' variantColor='tealVariant' {...formItemProps}>
           Add
         </Button>
       </form>

@@ -1,20 +1,11 @@
 import React from 'react';
-import {
-  Box,
-  CSSReset,
-  DarkMode,
-  Tab,
-  TabList,
-  TabPanel,
-  TabPanels,
-  Tabs,
-  theme,
-  ThemeProvider,
-} from '@chakra-ui/core';
+import { Box, CSSReset, DarkMode, Tab, TabList, TabPanel, TabPanels, Tabs, ThemeProvider } from '@chakra-ui/core';
 
 import { Menu } from './Menu';
 import { Calendar } from '../features/calendar/Calendar';
 import { Transactions } from '../features/transactions/Transactions';
+
+import { theme } from './theme';
 
 export const App = () => {
   return (
@@ -35,7 +26,7 @@ export const App = () => {
             ]}
           >
             <Menu />
-            <Tabs variant='enclosed' variantColor='teal'>
+            <Tabs variant='enclosed' variantColor='tealVariant'>
               <TabList>
                 <Tab>Calendar</Tab>
                 <Tab>Transactions</Tab>

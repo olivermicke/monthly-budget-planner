@@ -23,10 +23,6 @@ export const Calendar = () => {
 
   return (
     <Box margin='0 0 3rem'>
-      <Heading as='h3' display={['none', 'none', 'block']} margin='0 0 2rem' size='lg'>
-        Calendar
-      </Heading>
-
       <Box>
         <Box display='flex' flexDirection={['row']}>
           <FormControl alignItems='center' display='flex' margin='0 0 2rem'>
