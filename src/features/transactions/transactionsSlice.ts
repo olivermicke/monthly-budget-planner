@@ -9,7 +9,11 @@ import { Day as DayType } from '../calendar/types';
 
 type InitialState = {
   config: { currency: Currency };
-  transactions: { [key: string]: Transaction };
+  transactions: Transactions;
+};
+
+export type Transactions = {
+  [key: string]: Transaction;
 };
 
 const initialState: InitialState = {

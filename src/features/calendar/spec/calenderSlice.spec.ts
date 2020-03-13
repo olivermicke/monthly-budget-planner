@@ -1,6 +1,11 @@
-import { changeFirstDayNumber, initialState, reducer, selectFirstDayNumber } from '../calendarSlice';
+import { range } from 'ramda';
+
+import { initialState, reducer, selectFirstDayNumber, slice, selectDay } from '../calendarSlice';
 import { slice as transactionsSlice } from '../../transactions/transactionsSlice';
 
+import { MOCKED_TRANSACTIONS } from '../../transactions/spec/mocks';
+
+import { Day } from '../types';
 import { RootState } from '../../../store';
 
 describe('calendarSlice', () => {
@@ -140,9 +145,27 @@ describe('calendarSlice', () => {
     });
   });
 
-  test('changeFirstDayNumber', () => {
-    const nextState = reducer(initialState, changeFirstDayNumber(5));
-    const rootState = { calendar: nextState } as RootState;
-    expect(selectFirstDayNumber(rootState)).toEqual(5);
+  describe('changedFirstDayNumber', () => {
+    it('changes calendar config', () => {
+      const nextState = reducer(
+        initialState,
+        slice.actions.changedFirstDayNumber({ nextFirstDayNumber: 5, transactions: {} }),
+      );
+      const rootState = { calendar: nextState } as RootState;
+
+      expect(selectFirstDayNumber(rootState)).toEqual(5);
+    });
+
+    it('recalculates balance of days', () => {
+      const nextState = reducer(
+        initialState,
+        slice.actions.changedFirstDayNumber({ nextFirstDayNumber: 6, transactions: MOCKED_TRANSACTIONS }),
+      );
+      const rootState = { calendar: nextState } as RootState;
+
+      const daysBalance: Day['balance'][] = range(1, 32).map(dayNumber => selectDay(rootState, dayNumber).balance);
+
+      expect(daysBalance).toMatchSnapshot();
+    });
   });
 });
