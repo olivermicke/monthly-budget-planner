@@ -6,19 +6,17 @@ import { selectCurrency } from './transactionsSlice';
 
 import { Transaction as TransactionType } from './types';
 
-export const Transaction = ({ amount, isDistributedDaily, name, type }: TransactionType) => {
+export const Transaction = ({ amount, dueDayNumber, isDistributedDaily, name, type }: TransactionType) => {
   const currency = useSelector(selectCurrency);
 
   return (
     <Stat>
       <StatLabel>
         {name}
-        {isDistributedDaily && (
-          <Text as='span' color='gray.400'>
-            {' '}
-            [daily]
-          </Text>
-        )}
+        <Text as='span' color='gray.400'>
+          {' '}
+          {dueDayNumber ? `[day ${dueDayNumber}]` : '[daily]'}
+        </Text>
       </StatLabel>
       <StatHelpText alignItems='center' display='flex'>
         <StatArrow type={type === 'incoming' ? 'increase' : 'decrease'} />

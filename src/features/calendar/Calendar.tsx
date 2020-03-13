@@ -2,7 +2,7 @@ import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { range } from 'ramda';
 
-import { Box, FormControl, FormLabel, Heading, Select, SimpleGrid } from '@chakra-ui/core';
+import { Box, FormControl, FormLabel, Select, SimpleGrid } from '@chakra-ui/core';
 
 import { Day } from './Day';
 

@@ -20,7 +20,7 @@ import { addTransaction, selectCurrency } from './transactionsSlice';
 import { Transaction } from './types';
 
 const DEFAULT_NAME = '';
-const DEFAULT_AMOUNT = 31;
+const DEFAULT_AMOUNT = 10;
 const DEFAULT_DUE_DAY_NUMBER = 1;
 const DEFAULT_IS_DISTRIBUTED_DAILY = false;
 const DEFAULT_TYPE: Transaction['type'] = 'outgoing';

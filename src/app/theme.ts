@@ -15,13 +15,19 @@ type TealVariant = {
   900: string;
 };
 
+type Transaction = {
+  incoming: string;
+  outgoing: string;
+};
+
 type Theme = DefaultTheme & {
   colors: {
     tealVariant: TealVariant;
+    transaction: Transaction;
   };
 };
 
-const TEAL_VARIANT = '#4FD1C5';
+const TEAL_VARIANT = chakraTheme.colors.cyan[500];
 
 export const theme: Theme = mergeDeepRight(chakraTheme, {
   colors: {
@@ -32,5 +38,9 @@ export const theme: Theme = mergeDeepRight(chakraTheme, {
       }),
       {} as TealVariant,
     ),
+    transaction: {
+      incoming: chakraTheme.colors.green[500],
+      outgoing: chakraTheme.colors.red[500],
+    },
   },
 });
