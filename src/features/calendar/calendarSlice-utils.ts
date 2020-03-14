@@ -4,6 +4,22 @@ import { range } from 'ramda';
 import { initialState } from './calendarSlice';
 import { Transactions } from '../transactions/transactionsSlice';
 
+const sortedDayNumbers = (firstDay: number, dueDay: number | null): number[] => {
+  if (firstDay === 1) {
+    return range(dueDay ?? 1, 32);
+  }
+
+  if (dueDay === null) {
+    return [...range(firstDay, 32), ...range(1, firstDay)];
+  }
+
+  if (dueDay < firstDay) {
+    return range(dueDay, firstDay);
+  } else {
+    return [...range(dueDay, 32), ...range(1, firstDay)];
+  }
+};
+
 const switchSign = (n: number): number => (Math.sign(n) > 0 ? -Math.abs(n) : Math.abs(n));
 
 export const recalculateBalance = (
@@ -51,20 +67,4 @@ export const recalculateBalance = (
       return;
     });
   });
-};
-
-const sortedDayNumbers = (firstDay: number, dueDay: number | null): number[] => {
-  if (firstDay === 1) {
-    return range(dueDay ?? 1, 32);
-  }
-
-  if (dueDay === null) {
-    return [...range(firstDay, 32), ...range(1, firstDay)];
-  }
-
-  if (dueDay < firstDay) {
-    return range(dueDay, firstDay);
-  } else {
-    return [...range(dueDay, 32), ...range(1, firstDay)];
-  }
 };

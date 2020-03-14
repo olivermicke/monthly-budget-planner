@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { FunctionComponent } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { range } from 'ramda';
 
@@ -15,7 +15,7 @@ const createMonth = (firstDayNumber: DayType['number']): DayType['number'][] => 
   ...range(1, firstDayNumber),
 ];
 
-export const Calendar = () => {
+export const Calendar: FunctionComponent<{}> = () => {
   const firstDayNumber = useSelector(selectFirstDayNumber);
   const dispatch = useDispatch();
 
@@ -28,7 +28,7 @@ export const Calendar = () => {
           <FormControl alignItems='center' display='flex' margin='0 0 2rem'>
             <FormLabel whiteSpace='nowrap'>First day of month:</FormLabel>
             <Select
-              onChange={({ target }) => {
+              onChange={({ target }): void => {
                 const nextDayNumber: DayType['number'] = +target.value;
 
                 if (isNaN(nextDayNumber)) {

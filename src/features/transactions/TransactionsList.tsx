@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { FunctionComponent } from 'react';
 import { useSelector } from 'react-redux';
 import { Box, Heading } from '@chakra-ui/core';
 
@@ -9,7 +9,7 @@ import { selectTransactions } from './transactionsSlice';
 
 const boxProps = { marginTop: ['1rem', '1rem', '2rem'] };
 
-export const TransactionsList = () => {
+export const TransactionsList: FunctionComponent<{}> = () => {
   const transactions = useSelector(selectTransactions);
 
   const transactionsValues = Object.values(transactions);

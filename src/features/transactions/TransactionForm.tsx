@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { FunctionComponent, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { range } from 'ramda';
 import {
@@ -29,7 +29,7 @@ const formItemProps = {
   marginTop: ['1rem', '1rem', '2rem'],
 };
 
-export const TransactionForm = () => {
+export const TransactionForm: FunctionComponent<{}> = () => {
   const currency = useSelector(selectCurrency);
   const dispatch = useDispatch();
 
@@ -42,7 +42,7 @@ export const TransactionForm = () => {
   return (
     <Box marginBottom={['2rem', '2rem', 0]}>
       <form
-        onSubmit={event => {
+        onSubmit={(event): void => {
           event.preventDefault();
 
           const roundedAmount = +amount.toFixed(2);
@@ -72,7 +72,7 @@ export const TransactionForm = () => {
           <Input
             isRequired
             // @ts-ignore
-            onChange={({ target }) => {
+            onChange={({ target }): void => {
               setName(target.value);
             }}
             placeholder='e.g. "Electricity Bill"'
@@ -83,7 +83,7 @@ export const TransactionForm = () => {
         <FormControl {...formItemProps}>
           <FormLabel>Type:</FormLabel>
           <Select
-            onChange={({ target }) => {
+            onChange={({ target }): void => {
               setType(target.value as Transaction['type']);
             }}
             value={type}
@@ -101,7 +101,7 @@ export const TransactionForm = () => {
               max={Number.MAX_SAFE_INTEGER}
               min={0.01}
               // @ts-ignore
-              onChange={(amount: number) => {
+              onChange={(amount: number): void => {
                 setAmount(amount);
               }}
               value={amount}
@@ -115,7 +115,7 @@ export const TransactionForm = () => {
           <FormLabel>Due on day:</FormLabel>
           <Select
             isDisabled={isDistributedDaily}
-            onChange={({ target }) => {
+            onChange={({ target }): void => {
               const nextDayNumber: NonNullable<Transaction['dueDayNumber']> = +target.value;
 
               if (isNaN(nextDayNumber)) {
@@ -137,7 +137,7 @@ export const TransactionForm = () => {
           <FormLabel>Distribute over whole month:</FormLabel>
           <Checkbox
             isChecked={isDistributedDaily}
-            onChange={({ target }) => {
+            onChange={({ target }): void => {
               setIsDistributedDaily(target.checked);
             }}
             variantColor='tealVariant'

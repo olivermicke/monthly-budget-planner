@@ -1,4 +1,4 @@
-import React, { useCallback } from 'react';
+import React, { FunctionComponent, useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { IconButton, Stat, StatArrow, StatHelpText, StatLabel, StatNumber, Text } from '@chakra-ui/core';
 
@@ -12,7 +12,7 @@ type Props = {
 
 const SECONDARY_COLOR = 'gray.400';
 
-export const Transaction = ({ isDeletable, ...transactionProps }: Props) => {
+export const Transaction: FunctionComponent<Props> = ({ isDeletable, ...transactionProps }: Props) => {
   const dispatch = useDispatch();
   const currency = useSelector(selectCurrency);
 

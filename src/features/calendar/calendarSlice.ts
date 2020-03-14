@@ -30,7 +30,7 @@ export const slice = createSlice({
     changedFirstDayNumber(
       state,
       action: PayloadAction<{ nextFirstDayNumber: DayType['number']; transactions: Transactions }>,
-    ) {
+    ): void {
       const { nextFirstDayNumber, transactions } = action.payload;
 
       state.config.firstDayNumber = nextFirstDayNumber;
@@ -43,7 +43,7 @@ export const slice = createSlice({
     [transactionsSlice.actions.addTransaction.type]: (
       state: typeof initialState,
       action: ReturnType<typeof transactionsSlice.actions.addTransaction>,
-    ) => {
+    ): void => {
       const transaction = action.payload;
       const nextDays = recalculateBalance(state, {
         action: 'added',
@@ -55,7 +55,7 @@ export const slice = createSlice({
     [transactionsSlice.actions.deleteTransaction.type]: (
       state: typeof initialState,
       action: ReturnType<typeof transactionsSlice.actions.deleteTransaction>,
-    ) => {
+    ): void => {
       const transaction = action.payload;
       const nextDays = recalculateBalance(state, {
         action: 'deleted',
@@ -69,7 +69,7 @@ export const slice = createSlice({
 
 const thunks = {
   changeFirstDayNumber: function(dayNumber: DayType['number']) {
-    return (dispatch: AppDispatch, getState: () => RootState) => {
+    return (dispatch: AppDispatch, getState: () => RootState): void => {
       dispatch(
         slice.actions.changedFirstDayNumber({
           nextFirstDayNumber: dayNumber,
@@ -82,7 +82,7 @@ const thunks = {
 
 export const { changeFirstDayNumber } = thunks;
 
-export const selectDay = (state: RootState, dayNumber: DayType['number']) => state.calendar.days[dayNumber];
-export const selectFirstDayNumber = (state: RootState) => state.calendar.config.firstDayNumber;
+export const selectDay = (state: RootState, dayNumber: DayType['number']): DayType => state.calendar.days[dayNumber];
+export const selectFirstDayNumber = (state: RootState): DayType['number'] => state.calendar.config.firstDayNumber;
 
 export const reducer = slice.reducer;

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { FunctionComponent } from 'react';
 import {
   Accordion,
   AccordionHeader,
@@ -12,7 +12,7 @@ import {
 import { TransactionForm } from './TransactionForm';
 import { TransactionsList } from './TransactionsList';
 
-export const Transactions = () => (
+export const Transactions: FunctionComponent<{}> = () => (
   <>
     <Box display={['block', 'block', 'none']}>
       <Accordion allowMultiple allowToggle>

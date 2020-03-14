@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { FunctionComponent } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { FormControl, FormLabel, Select } from '@chakra-ui/core';
 
@@ -8,7 +8,7 @@ import { CURRENCIES } from './constants';
 
 import { Currency } from './types';
 
-export const TransactionsConfig = () => {
+export const TransactionsConfig: FunctionComponent<{}> = () => {
   const currency = useSelector(selectCurrency);
   const dispatch = useDispatch();
 
@@ -16,7 +16,7 @@ export const TransactionsConfig = () => {
     <FormControl marginTop={['1rem', '1rem', '2rem']}>
       <FormLabel>Currency:</FormLabel>
       <Select
-        onChange={({ target }) => {
+        onChange={({ target }): void => {
           dispatch(changeCurrency(target.value as Currency['name']));
         }}
         value={currency.name}

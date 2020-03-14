@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { FunctionComponent } from 'react';
 import { Box, CSSReset, DarkMode, Tab, TabList, TabPanel, TabPanels, Tabs, ThemeProvider } from '@chakra-ui/core';
 
 import { Menu } from './Menu';
@@ -7,7 +7,7 @@ import { Transactions } from '../features/transactions/Transactions';
 
 import { theme } from './theme';
 
-export const App = () => {
+export const App: FunctionComponent<{}> = () => {
   return (
     <ThemeProvider theme={theme}>
       <DarkMode>

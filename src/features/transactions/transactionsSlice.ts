@@ -30,7 +30,7 @@ export const slice = createSlice({
   name: 'transactions',
   initialState,
   reducers: {
-    addTransaction: (state, action: PayloadAction<Transaction>) => {
+    addTransaction: (state, action: PayloadAction<Transaction>): void => {
       const { name, ...rest } = action.payload;
 
       state.transactions[name] = {
@@ -38,18 +38,18 @@ export const slice = createSlice({
         ...rest,
       };
     },
-    changeCurrency: (state, action: PayloadAction<Currency['name']>) => {
+    changeCurrency: (state, action: PayloadAction<Currency['name']>): void => {
       state.config.currency = CURRENCIES[action.payload];
     },
-    deleteTransaction: (state, action: PayloadAction<Transaction>) => {
+    deleteTransaction: (state, action: PayloadAction<Transaction>): void => {
       delete state.transactions[action.payload.name];
     },
   },
 });
 
-export const selectCurrency = (state: RootState) => state.transactions.config.currency;
-export const selectTransactions = (state: RootState) => state.transactions.transactions;
-export const selectTransactionsForDay = (state: RootState, dayNumber: DayType['number']) =>
+export const selectCurrency = (state: RootState): Currency => state.transactions.config.currency;
+export const selectTransactions = (state: RootState): Transactions => state.transactions.transactions;
+export const selectTransactionsForDay = (state: RootState, dayNumber: DayType['number']): Transaction[] =>
   Object.values(state.transactions.transactions).filter(
     ({ dueDayNumber, isDistributedDaily }) => isDistributedDaily || dueDayNumber === dayNumber,
   );
