@@ -2,6 +2,7 @@
   "name": "monthly-budget-planner",
   "version": "0.1.0",
   "private": true,
+  "homepage": "https://olivermicke.github.io/monthly-budget-planner",
   "dependencies": {
     "@chakra-ui/core": "^0.6.1",
     "@emotion/core": "^10.0.28",
@@ -20,7 +21,9 @@
     "build": "react-scripts build",
     "lint": "eslint './src/**/*.{ts,tsx}'",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build"
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -52,6 +55,7 @@
     "eslint-config-prettier": "^6.10.0",
     "eslint-config-react": "^1.1.7",
     "eslint-plugin-prettier": "^3.1.2",
+    "gh-pages": "^2.2.0",
     "prettier": "^1.19.1",
     "typescript": "^3.8.2"
   }
