@@ -45,9 +45,11 @@ export const TransactionForm = () => {
         onSubmit={event => {
           event.preventDefault();
 
+          const roundedAmount = +amount.toFixed(2);
+
           dispatch(
             addTransaction({
-              amount: type === 'incoming' ? amount : -Math.abs(amount),
+              amount: type === 'incoming' ? roundedAmount : -Math.abs(roundedAmount),
               dueDayNumber: isDistributedDaily ? null : dueDayNumber,
               isDistributedDaily,
               name,

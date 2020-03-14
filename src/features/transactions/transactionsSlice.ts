@@ -33,18 +33,16 @@ export const slice = createSlice({
     addTransaction: (state, action: PayloadAction<Transaction>) => {
       const { name, ...rest } = action.payload;
 
-      // TODO: Round amount
-
       state.transactions[name] = {
         name,
         ...rest,
       };
     },
-    // TODO: add missing actions
-    // edit:
-    // remove:
     changeCurrency: (state, action: PayloadAction<Currency['name']>) => {
       state.config.currency = CURRENCIES[action.payload];
+    },
+    deleteTransaction: (state, action: PayloadAction<Transaction>) => {
+      delete state.transactions[action.payload.name];
     },
   },
 });
@@ -56,6 +54,6 @@ export const selectTransactionsForDay = (state: RootState, dayNumber: DayType['n
     ({ dueDayNumber, isDistributedDaily }) => isDistributedDaily || dueDayNumber === dayNumber,
   );
 
-export const { addTransaction, changeCurrency } = slice.actions;
+export const { addTransaction, changeCurrency, deleteTransaction } = slice.actions;
 
 export const reducer = slice.reducer;

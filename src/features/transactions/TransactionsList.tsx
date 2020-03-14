@@ -28,8 +28,8 @@ export const TransactionsList = () => {
         </Box>
       ) : (
         transactionsValues.map(transaction => (
-          <Box marginTop='2rem'>
-            <Transaction key={transaction.name} {...transaction} />
+          <Box key={transaction.name} marginTop='2rem'>
+            <Transaction isDeletable {...transaction} />
           </Box>
         ))
       )}

@@ -35,17 +35,33 @@ export const slice = createSlice({
 
       state.config.firstDayNumber = nextFirstDayNumber;
 
-      const nextDays = recalculateBalance(state, transactions);
+      const nextDays = recalculateBalance(state, { action: 'added', shouldReset: true, transactions });
       state.days = nextDays;
     },
   },
   extraReducers: {
-    [transactionsSlice.actions.addTransaction.type]: function(
+    [transactionsSlice.actions.addTransaction.type]: (
       state: typeof initialState,
       action: ReturnType<typeof transactionsSlice.actions.addTransaction>,
-    ) {
+    ) => {
       const transaction = action.payload;
-      const nextDays = recalculateBalance(state, { [transaction.name]: transaction });
+      const nextDays = recalculateBalance(state, {
+        action: 'added',
+        shouldReset: false,
+        transactions: { [transaction.name]: transaction },
+      });
+      state.days = nextDays;
+    },
+    [transactionsSlice.actions.deleteTransaction.type]: (
+      state: typeof initialState,
+      action: ReturnType<typeof transactionsSlice.actions.deleteTransaction>,
+    ) => {
+      const transaction = action.payload;
+      const nextDays = recalculateBalance(state, {
+        action: 'deleted',
+        shouldReset: false,
+        transactions: { [transaction.name]: transaction },
+      });
       state.days = nextDays;
     },
   },

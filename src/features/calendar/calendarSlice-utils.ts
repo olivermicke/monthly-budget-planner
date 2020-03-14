@@ -4,23 +4,40 @@ import { range } from 'ramda';
 import { initialState } from './calendarSlice';
 import { Transactions } from '../transactions/transactionsSlice';
 
+const switchSign = (n: number): number => (Math.sign(n) > 0 ? -Math.abs(n) : Math.abs(n));
+
 export const recalculateBalance = (
   calendarState: typeof initialState,
-  transactions: Transactions,
+  {
+    action,
+    shouldReset,
+    transactions,
+  }: {
+    action: 'added' | 'deleted';
+    shouldReset: boolean;
+    transactions: Transactions;
+  },
 ): typeof initialState.days => {
   const {
     config: { firstDayNumber },
   } = calendarState;
 
   return produce(calendarState.days, days => {
+    if (shouldReset) {
+      Object.values(days).forEach(day => {
+        day.balance = 0;
+      });
+    }
+
     Object.values(transactions).forEach(transaction => {
       const { amount, dueDayNumber, isDistributedDaily, type } = transaction;
 
       const dayNumbers = sortedDayNumbers(firstDayNumber, dueDayNumber);
       const fixedAmount = type === 'incoming' ? amount : -Math.abs(amount);
+      const amountAccountedForAction = action === 'added' ? fixedAmount : switchSign(fixedAmount);
 
       if (isDistributedDaily) {
-        const dailyAmount = +(fixedAmount / 31).toFixed(2);
+        const dailyAmount = +(amountAccountedForAction / 31).toFixed(2);
 
         dayNumbers.forEach((dayNumber, index) => {
           days[dayNumber].balance += dailyAmount * (index + 1);
@@ -29,7 +46,7 @@ export const recalculateBalance = (
       }
 
       dayNumbers.forEach(dayNumber => {
-        days[dayNumber].balance += fixedAmount;
+        days[dayNumber].balance += amountAccountedForAction;
       });
       return;
     });

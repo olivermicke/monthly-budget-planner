@@ -1,27 +1,53 @@
-import React from 'react';
-import { useSelector } from 'react-redux';
-import { Stat, StatArrow, StatHelpText, StatLabel, StatNumber, Text } from '@chakra-ui/core';
+import React, { useCallback } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { IconButton, Stat, StatArrow, StatHelpText, StatLabel, StatNumber, Text } from '@chakra-ui/core';
 
-import { selectCurrency } from './transactionsSlice';
+import { deleteTransaction, selectCurrency } from './transactionsSlice';
 
 import { Transaction as TransactionType } from './types';
 
-export const Transaction = ({ amount, dueDayNumber, isDistributedDaily, name, type }: TransactionType) => {
+type Props = {
+  isDeletable?: boolean;
+} & TransactionType;
+
+const SECONDARY_COLOR = 'gray.400';
+
+export const Transaction = ({ isDeletable, ...transactionProps }: Props) => {
+  const dispatch = useDispatch();
   const currency = useSelector(selectCurrency);
+
+  const memoizedDeleteTransaction = useCallback(() => {
+    dispatch(deleteTransaction(transactionProps));
+  }, [dispatch, transactionProps]);
+
+  const { amount, dueDayNumber, isDistributedDaily, name, type } = transactionProps;
 
   return (
     <Stat>
       <StatLabel>
-        {name}
-        <Text as='span' color='gray.400'>
-          {' '}
-          {dueDayNumber ? `[day ${dueDayNumber}]` : '[daily]'}
+        <Text as='span'>
+          {name}
+          <Text as='span' color={SECONDARY_COLOR} marginLeft={1}>
+            {dueDayNumber ? `[day ${dueDayNumber}]` : '[daily]'}
+          </Text>
+          {isDeletable && (
+            <IconButton
+              aria-label='delete transaction'
+              bottom={'1px'}
+              icon='delete'
+              marginLeft={2}
+              onClick={memoizedDeleteTransaction}
+              size='xs'
+              variant='ghost'
+              color={SECONDARY_COLOR}
+            />
+          )}
         </Text>
       </StatLabel>
       <StatHelpText alignItems='center' display='flex'>
         <StatArrow type={type === 'incoming' ? 'increase' : 'decrease'} />
         <StatNumber as='span'>
-          {isDistributedDaily ? (amount / 31).toFixed(2) : amount}
+          {isDistributedDaily ? (amount / 31).toFixed(2) : amount.toFixed(2)}
           {currency.symbol}
         </StatNumber>
       </StatHelpText>
