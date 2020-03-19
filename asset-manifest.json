@@ -1,0 +1,22 @@
+{
+  "files": {
+    "main.css": "/monthly-budget-planner/static/css/main.41726d72.chunk.css",
+    "main.js": "/monthly-budget-planner/static/js/main.949b53e1.chunk.js",
+    "main.js.map": "/monthly-budget-planner/static/js/main.949b53e1.chunk.js.map",
+    "runtime-main.js": "/monthly-budget-planner/static/js/runtime-main.c7773bec.js",
+    "runtime-main.js.map": "/monthly-budget-planner/static/js/runtime-main.c7773bec.js.map",
+    "static/js/2.3a4a4ed6.chunk.js": "/monthly-budget-planner/static/js/2.3a4a4ed6.chunk.js",
+    "static/js/2.3a4a4ed6.chunk.js.map": "/monthly-budget-planner/static/js/2.3a4a4ed6.chunk.js.map",
+    "index.html": "/monthly-budget-planner/index.html",
+    "precache-manifest.d0fe4f66839d63f5e6e30c596c7860b0.js": "/monthly-budget-planner/precache-manifest.d0fe4f66839d63f5e6e30c596c7860b0.js",
+    "service-worker.js": "/monthly-budget-planner/service-worker.js",
+    "static/css/main.41726d72.chunk.css.map": "/monthly-budget-planner/static/css/main.41726d72.chunk.css.map",
+    "static/js/2.3a4a4ed6.chunk.js.LICENSE.txt": "/monthly-budget-planner/static/js/2.3a4a4ed6.chunk.js.LICENSE.txt"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.c7773bec.js",
+    "static/js/2.3a4a4ed6.chunk.js",
+    "static/css/main.41726d72.chunk.css",
+    "static/js/main.949b53e1.chunk.js"
+  ]
+}
