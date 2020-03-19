@@ -1,10 +1,10 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "36d18934ab76038708617fffdd80627c",
+    "revision": "9c2f751471f1536f76ed6b0316e1edb8",
     "url": "/monthly-budget-planner/index.html"
   },
   {
-    "revision": "19195eef720af398216b",
+    "revision": "c3f8cb75252008932ace",
     "url": "/monthly-budget-planner/static/css/main.41726d72.chunk.css"
   },
   {
@@ -16,8 +16,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/monthly-budget-planner/static/js/2.3a4a4ed6.chunk.js.LICENSE.txt"
   },
   {
-    "revision": "19195eef720af398216b",
-    "url": "/monthly-budget-planner/static/js/main.949b53e1.chunk.js"
+    "revision": "c3f8cb75252008932ace",
+    "url": "/monthly-budget-planner/static/js/main.3e94aa44.chunk.js"
   },
   {
     "revision": "d06c77fefb6d71b55e01",
