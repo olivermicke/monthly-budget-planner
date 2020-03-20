@@ -1,6 +1,6 @@
 import React, { StrictMode } from 'react';
 import ReactDOM from 'react-dom';
-import { BrowserRouter as Router } from 'react-router-dom';
+import { HashRouter } from 'react-router-dom';
 import { Provider as ReduxProvider } from 'react-redux';
 import { PersistGate } from 'redux-persist/integration/react';
 
@@ -13,13 +13,13 @@ import './index.css';
 
 ReactDOM.render(
   <StrictMode>
-    <Router basename='/monthly-budget-planner'>
+    <HashRouter basename='/'>
       <ReduxProvider store={store}>
         <PersistGate loading={null} persistor={persistor}>
           <App />
         </PersistGate>
       </ReduxProvider>
-    </Router>
+    </HashRouter>
   </StrictMode>,
   document.getElementById('root'),
 );
