@@ -1,4 +1,4 @@
-import React, { FunctionComponent } from 'react';
+import React, { FunctionComponent, Suspense } from 'react';
 import {
   Accordion,
   AccordionHeader,
@@ -22,7 +22,7 @@ const TransactionsList = React.lazy(() =>
 );
 
 export const Transactions: FunctionComponent<{}> = () => (
-  <React.Suspense fallback={null}>
+  <Suspense fallback={null}>
     <Box display={['block', 'block', 'none']}>
       <Accordion allowMultiple allowToggle>
         <AccordionItem>
@@ -62,5 +62,5 @@ export const Transactions: FunctionComponent<{}> = () => (
         </Box>
       </Box>
     </Box>
-  </React.Suspense>
+  </Suspense>
 );
