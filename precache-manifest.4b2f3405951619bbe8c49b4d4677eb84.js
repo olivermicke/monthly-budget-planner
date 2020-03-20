@@ -1,19 +1,19 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "81a8a9f748ec9f709f035790eab62582",
+    "revision": "3bae77100cd1136f799c2d60bd1407a3",
     "url": "/monthly-budget-planner/index.html"
   },
   {
-    "revision": "4d9d0de95c24ffbc3c39",
+    "revision": "0db790ac1ad9632a4c3c",
     "url": "/monthly-budget-planner/static/css/main.41726d72.chunk.css"
   },
   {
-    "revision": "94e9e7300fc7860fc1c3",
-    "url": "/monthly-budget-planner/static/js/2.bba19e56.chunk.js"
+    "revision": "694ea89f8268296a0894",
+    "url": "/monthly-budget-planner/static/js/2.e1931988.chunk.js"
   },
   {
     "revision": "df453893fe9454652c62d2d4cd6d65ab",
-    "url": "/monthly-budget-planner/static/js/2.bba19e56.chunk.js.LICENSE.txt"
+    "url": "/monthly-budget-planner/static/js/2.e1931988.chunk.js.LICENSE.txt"
   },
   {
     "revision": "0c956e7d8a3e776a3e60",
@@ -24,19 +24,19 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/monthly-budget-planner/static/js/3.5fb04530.chunk.js.LICENSE.txt"
   },
   {
-    "revision": "c7277b33031851c88751",
-    "url": "/monthly-budget-planner/static/js/4.cff791f6.chunk.js"
+    "revision": "38a1eb21039dcbc38a45",
+    "url": "/monthly-budget-planner/static/js/4.f911fafa.chunk.js"
   },
   {
     "revision": "7c44a3d84570b65a22d5",
     "url": "/monthly-budget-planner/static/js/5.bd066e18.chunk.js"
   },
   {
-    "revision": "4d9d0de95c24ffbc3c39",
-    "url": "/monthly-budget-planner/static/js/main.00ad3af7.chunk.js"
+    "revision": "0db790ac1ad9632a4c3c",
+    "url": "/monthly-budget-planner/static/js/main.945d39af.chunk.js"
   },
   {
-    "revision": "c360fe90ab844a9cf134",
-    "url": "/monthly-budget-planner/static/js/runtime-main.8eac2142.js"
+    "revision": "d62f071e7c0030ea170f",
+    "url": "/monthly-budget-planner/static/js/runtime-main.87de39dc.js"
   }
 ]);
