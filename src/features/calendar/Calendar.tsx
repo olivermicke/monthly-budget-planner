@@ -15,6 +15,8 @@ const createMonth = (firstDayNumber: DayType['number']): DayType['number'][] => 
   ...range(1, firstDayNumber),
 ];
 
+const FIRST_DAY_SELECT = 'first-day-select';
+
 export const Calendar: FunctionComponent<{}> = () => {
   const firstDayNumber = useSelector(selectFirstDayNumber);
   const dispatch = useDispatch();
@@ -25,8 +27,11 @@ export const Calendar: FunctionComponent<{}> = () => {
     <Box margin='0 0 3rem'>
       <Box display='flex' flexDirection={['row']}>
         <FormControl alignItems='center' display='flex' margin='0 0 2rem'>
-          <FormLabel whiteSpace='nowrap'>First day of month:</FormLabel>
+          <FormLabel htmlFor={FIRST_DAY_SELECT} whiteSpace='nowrap'>
+            First day of month:
+          </FormLabel>
           <Select
+            id={FIRST_DAY_SELECT}
             onChange={({ target }): void => {
               const nextDayNumber: DayType['number'] = +target.value;
 

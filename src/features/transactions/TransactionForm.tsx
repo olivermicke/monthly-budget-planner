@@ -25,6 +25,9 @@ const DEFAULT_DUE_DAY_NUMBER = 1;
 const DEFAULT_IS_DISTRIBUTED_DAILY = false;
 const DEFAULT_TYPE: Transaction['type'] = 'outgoing';
 
+const TRANSACTION_NAME_SELECT = 'transaction-name-select';
+const TRANSACTION_TYPE_SELECT = 'transaction-type-select';
+
 const formItemProps = {
   marginTop: ['1rem', '1rem', '2rem'],
 };
@@ -68,8 +71,9 @@ export const TransactionForm: FunctionComponent<{}> = () => {
           Add transaction
         </Heading>
         <FormControl {...formItemProps}>
-          <FormLabel>Name:</FormLabel>
+          <FormLabel htmlFor={TRANSACTION_NAME_SELECT}>Name:</FormLabel>
           <Input
+            id={TRANSACTION_TYPE_SELECT}
             isRequired
             // @ts-ignore
             onChange={({ target }): void => {
@@ -81,8 +85,9 @@ export const TransactionForm: FunctionComponent<{}> = () => {
           />
         </FormControl>
         <FormControl {...formItemProps}>
-          <FormLabel>Type:</FormLabel>
+          <FormLabel htmlFor={TRANSACTION_TYPE_SELECT}>Type:</FormLabel>
           <Select
+            id={TRANSACTION_TYPE_SELECT}
             onChange={({ target }): void => {
               setType(target.value as Transaction['type']);
             }}
