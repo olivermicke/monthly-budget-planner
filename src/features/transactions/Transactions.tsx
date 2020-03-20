@@ -9,11 +9,20 @@ import {
   Divider,
 } from '@chakra-ui/core';
 
-import { TransactionForm } from './TransactionForm';
-import { TransactionsList } from './TransactionsList';
+const TransactionForm = React.lazy(() =>
+  import('./TransactionForm').then(({ TransactionForm }) => ({
+    default: TransactionForm,
+  })),
+);
+
+const TransactionsList = React.lazy(() =>
+  import('./TransactionsList').then(({ TransactionsList }) => ({
+    default: TransactionsList,
+  })),
+);
 
 export const Transactions: FunctionComponent<{}> = () => (
-  <>
+  <React.Suspense fallback={null}>
     <Box display={['block', 'block', 'none']}>
       <Accordion allowMultiple allowToggle>
         <AccordionItem>
@@ -53,5 +62,5 @@ export const Transactions: FunctionComponent<{}> = () => (
         </Box>
       </Box>
     </Box>
-  </>
+  </React.Suspense>
 );
