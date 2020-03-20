@@ -23,30 +23,28 @@ export const Calendar: FunctionComponent<{}> = () => {
 
   return (
     <Box margin='0 0 3rem'>
-      <Box>
-        <Box display='flex' flexDirection={['row']}>
-          <FormControl alignItems='center' display='flex' margin='0 0 2rem'>
-            <FormLabel whiteSpace='nowrap'>First day of month:</FormLabel>
-            <Select
-              onChange={({ target }): void => {
-                const nextDayNumber: DayType['number'] = +target.value;
+      <Box display='flex' flexDirection={['row']}>
+        <FormControl alignItems='center' display='flex' margin='0 0 2rem'>
+          <FormLabel whiteSpace='nowrap'>First day of month:</FormLabel>
+          <Select
+            onChange={({ target }): void => {
+              const nextDayNumber: DayType['number'] = +target.value;
 
-                if (isNaN(nextDayNumber)) {
-                  return;
-                }
+              if (isNaN(nextDayNumber)) {
+                return;
+              }
 
-                dispatch(changeFirstDayNumber(nextDayNumber));
-              }}
-              value={firstDayNumber}
-            >
-              {range(1, 32).map(dayNumber => (
-                <option key={dayNumber} value={dayNumber}>
-                  {dayNumber}
-                </option>
-              ))}
-            </Select>
-          </FormControl>
-        </Box>
+              dispatch(changeFirstDayNumber(nextDayNumber));
+            }}
+            value={firstDayNumber}
+          >
+            {range(1, 32).map(dayNumber => (
+              <option key={dayNumber} value={dayNumber}>
+                {dayNumber}
+              </option>
+            ))}
+          </Select>
+        </FormControl>
       </Box>
 
       <SimpleGrid columns={[3, 3, 7]}>
