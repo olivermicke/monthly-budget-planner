@@ -1,10 +1,10 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "df1ae4ad95780cfbe2a6d78527da22bd",
+    "revision": "bbea227c87c247f0e642f0106c0d3c62",
     "url": "/monthly-budget-planner/index.html"
   },
   {
-    "revision": "85cd46623d0e947ee82f",
+    "revision": "1dd9b8ab36168bcbd230",
     "url": "/monthly-budget-planner/static/css/main.41726d72.chunk.css"
   },
   {
@@ -24,19 +24,19 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/monthly-budget-planner/static/js/3.119761cd.chunk.js.LICENSE.txt"
   },
   {
-    "revision": "9d66ece82ebfe00db4b7",
-    "url": "/monthly-budget-planner/static/js/4.9b907a69.chunk.js"
+    "revision": "def63721067f8f8c151d",
+    "url": "/monthly-budget-planner/static/js/4.330b53dd.chunk.js"
   },
   {
     "revision": "9122d909af1cd04a58e5",
     "url": "/monthly-budget-planner/static/js/5.21c6d067.chunk.js"
   },
   {
-    "revision": "85cd46623d0e947ee82f",
-    "url": "/monthly-budget-planner/static/js/main.7ea04017.chunk.js"
+    "revision": "1dd9b8ab36168bcbd230",
+    "url": "/monthly-budget-planner/static/js/main.990c3041.chunk.js"
   },
   {
-    "revision": "95ad3938e6426015e4e2",
-    "url": "/monthly-budget-planner/static/js/runtime-main.c49cd1e6.js"
+    "revision": "e27a4cf5a926672fd035",
+    "url": "/monthly-budget-planner/static/js/runtime-main.f5ec206c.js"
   }
 ]);
