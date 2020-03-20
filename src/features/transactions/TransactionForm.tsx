@@ -25,8 +25,11 @@ const DEFAULT_DUE_DAY_NUMBER = 1;
 const DEFAULT_IS_DISTRIBUTED_DAILY = false;
 const DEFAULT_TYPE: Transaction['type'] = 'outgoing';
 
-const TRANSACTION_NAME_SELECT = 'transaction-name-select';
-const TRANSACTION_TYPE_SELECT = 'transaction-type-select';
+const ARIA_TRANSACTION_AMOUNT_INPUT = 'transaction-amount-input';
+const ARIA_TRANSACTION_DISTRIBUTION_CHECKBOX = 'transaction-distribution-checkbox';
+const ARIA_TRANSACTION_DUE_DAY_SELECT = 'transaction-due-day-select';
+const ARIA_TRANSACTION_NAME_INPUT = 'transaction-name-input';
+const ARIA_TRANSACTION_TYPE_SELECT = 'transaction-type-select';
 
 const formItemProps = {
   marginTop: ['1rem', '1rem', '2rem'],
@@ -71,9 +74,9 @@ export const TransactionForm: FunctionComponent<{}> = () => {
           Add transaction
         </Heading>
         <FormControl {...formItemProps}>
-          <FormLabel htmlFor={TRANSACTION_NAME_SELECT}>Name:</FormLabel>
+          <FormLabel htmlFor={ARIA_TRANSACTION_NAME_INPUT}>Name:</FormLabel>
           <Input
-            id={TRANSACTION_TYPE_SELECT}
+            id={ARIA_TRANSACTION_NAME_INPUT}
             isRequired
             // @ts-ignore
             onChange={({ target }): void => {
@@ -85,9 +88,9 @@ export const TransactionForm: FunctionComponent<{}> = () => {
           />
         </FormControl>
         <FormControl {...formItemProps}>
-          <FormLabel htmlFor={TRANSACTION_TYPE_SELECT}>Type:</FormLabel>
+          <FormLabel htmlFor={ARIA_TRANSACTION_TYPE_SELECT}>Type:</FormLabel>
           <Select
-            id={TRANSACTION_TYPE_SELECT}
+            id={ARIA_TRANSACTION_TYPE_SELECT}
             onChange={({ target }): void => {
               setType(target.value as Transaction['type']);
             }}
@@ -98,7 +101,7 @@ export const TransactionForm: FunctionComponent<{}> = () => {
           </Select>
         </FormControl>
         <FormControl {...formItemProps}>
-          <FormLabel>Amount in {currency.symbol}:</FormLabel>
+          <FormLabel htmlFor={ARIA_TRANSACTION_AMOUNT_INPUT}>Amount in {currency.symbol}:</FormLabel>
           <Box display='flex'>
             <NumberInput
               flex={1}
@@ -110,14 +113,15 @@ export const TransactionForm: FunctionComponent<{}> = () => {
               }}
               value={amount}
             >
-              <NumberInputField />
+              <NumberInputField id={ARIA_TRANSACTION_AMOUNT_INPUT} />
             </NumberInput>
             <FormHelperText whiteSpace='nowrap'>e.g. 119.99</FormHelperText>
           </Box>
         </FormControl>
         <FormControl {...formItemProps}>
-          <FormLabel>Due on day:</FormLabel>
+          <FormLabel htmlFor={ARIA_TRANSACTION_DUE_DAY_SELECT}>Due on day:</FormLabel>
           <Select
+            id={ARIA_TRANSACTION_DUE_DAY_SELECT}
             isDisabled={isDistributedDaily}
             onChange={({ target }): void => {
               const nextDayNumber: NonNullable<Transaction['dueDayNumber']> = +target.value;
@@ -138,8 +142,9 @@ export const TransactionForm: FunctionComponent<{}> = () => {
           </Select>
         </FormControl>
         <FormControl display='flex' {...formItemProps}>
-          <FormLabel>Distribute over whole month:</FormLabel>
+          <FormLabel htmlFor={ARIA_TRANSACTION_DISTRIBUTION_CHECKBOX}>Distribute over whole month:</FormLabel>
           <Checkbox
+            id={ARIA_TRANSACTION_DISTRIBUTION_CHECKBOX}
             isChecked={isDistributedDaily}
             onChange={({ target }): void => {
               setIsDistributedDaily(target.checked);

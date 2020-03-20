@@ -8,14 +8,17 @@ import { CURRENCIES } from './constants';
 
 import { Currency } from './types';
 
+const ARIA_CURRENCY_SELECT = 'currency-select';
+
 export const TransactionsConfig: FunctionComponent<{}> = () => {
   const currency = useSelector(selectCurrency);
   const dispatch = useDispatch();
 
   return (
     <FormControl marginTop={['1rem', '1rem', '2rem']}>
-      <FormLabel>Currency:</FormLabel>
+      <FormLabel htmlFor={ARIA_CURRENCY_SELECT}>Currency:</FormLabel>
       <Select
+        id={ARIA_CURRENCY_SELECT}
         onChange={({ target }): void => {
           dispatch(changeCurrency(target.value as Currency['name']));
         }}
