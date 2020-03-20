@@ -1,8 +1,8 @@
 {
   "files": {
     "main.css": "/monthly-budget-planner/static/css/main.41726d72.chunk.css",
-    "main.js": "/monthly-budget-planner/static/js/main.1d069ea8.chunk.js",
-    "main.js.map": "/monthly-budget-planner/static/js/main.1d069ea8.chunk.js.map",
+    "main.js": "/monthly-budget-planner/static/js/main.00ad3af7.chunk.js",
+    "main.js.map": "/monthly-budget-planner/static/js/main.00ad3af7.chunk.js.map",
     "runtime-main.js": "/monthly-budget-planner/static/js/runtime-main.8eac2142.js",
     "runtime-main.js.map": "/monthly-budget-planner/static/js/runtime-main.8eac2142.js.map",
     "static/js/2.bba19e56.chunk.js": "/monthly-budget-planner/static/js/2.bba19e56.chunk.js",
@@ -14,7 +14,7 @@
     "static/js/5.bd066e18.chunk.js": "/monthly-budget-planner/static/js/5.bd066e18.chunk.js",
     "static/js/5.bd066e18.chunk.js.map": "/monthly-budget-planner/static/js/5.bd066e18.chunk.js.map",
     "index.html": "/monthly-budget-planner/index.html",
-    "precache-manifest.d7269741511ef93b75adcbafef157b9a.js": "/monthly-budget-planner/precache-manifest.d7269741511ef93b75adcbafef157b9a.js",
+    "precache-manifest.0f8351ebf89fd8157ee17fc18d34e748.js": "/monthly-budget-planner/precache-manifest.0f8351ebf89fd8157ee17fc18d34e748.js",
     "service-worker.js": "/monthly-budget-planner/service-worker.js",
     "static/css/main.41726d72.chunk.css.map": "/monthly-budget-planner/static/css/main.41726d72.chunk.css.map",
     "static/js/2.bba19e56.chunk.js.LICENSE.txt": "/monthly-budget-planner/static/js/2.bba19e56.chunk.js.LICENSE.txt",
@@ -24,6 +24,6 @@
     "static/js/runtime-main.8eac2142.js",
     "static/js/2.bba19e56.chunk.js",
     "static/css/main.41726d72.chunk.css",
-    "static/js/main.1d069ea8.chunk.js"
+    "static/js/main.00ad3af7.chunk.js"
   ]
 }
