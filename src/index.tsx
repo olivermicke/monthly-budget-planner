@@ -13,7 +13,7 @@ import './index.css';
 
 ReactDOM.render(
   <StrictMode>
-    <Router>
+    <Router basename='/monthly-budget-planner'>
       <ReduxProvider store={store}>
         <PersistGate loading={null} persistor={persistor}>
           <App />
