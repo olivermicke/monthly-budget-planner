@@ -8,6 +8,9 @@ import {
   Box,
   Divider,
 } from '@chakra-ui/core';
+import { useWindowWidth } from '@react-hook/window-size';
+
+import { convertWidthToEM } from '../../utils/dom-utils';
 
 const TransactionForm = React.lazy(() =>
   import('./TransactionForm').then(({ TransactionForm }) => ({
@@ -21,46 +24,54 @@ const TransactionsList = React.lazy(() =>
   })),
 );
 
-export const Transactions: FunctionComponent<{}> = () => (
-  <Suspense fallback={null}>
-    <Box display={['block', 'block', 'none']}>
-      <Accordion allowMultiple allowToggle>
-        <AccordionItem>
-          <AccordionHeader>
-            <Box flex='1' textAlign='left'>
-              Add transaction
-            </Box>
-            <AccordionIcon />
-          </AccordionHeader>
-          <AccordionPanel>
+const ACCORDION_BREAKPONT_EM = 62;
+
+export const Transactions: FunctionComponent<{}> = () => {
+  const widthPX = useWindowWidth(0, { leading: true, wait: 250 });
+  const widthEM = convertWidthToEM(widthPX);
+  const shouldShowAccordion = widthEM <= ACCORDION_BREAKPONT_EM;
+
+  return (
+    <Suspense fallback={null}>
+      {shouldShowAccordion ? (
+        <>
+          <Accordion allowMultiple allowToggle>
+            <AccordionItem>
+              <AccordionHeader>
+                <Box flex='1' textAlign='left'>
+                  Add transaction
+                </Box>
+                <AccordionIcon />
+              </AccordionHeader>
+              <AccordionPanel>
+                <TransactionForm />
+              </AccordionPanel>
+            </AccordionItem>
+
+            <AccordionItem>
+              <AccordionHeader>
+                <Box flex='1' textAlign='left'>
+                  List of transactions
+                </Box>
+                <AccordionIcon />
+              </AccordionHeader>
+              <AccordionPanel>
+                <TransactionsList />
+              </AccordionPanel>
+            </AccordionItem>
+          </Accordion>
+        </>
+      ) : (
+        <Box display='flex' marginBottom='2rem'>
+          <Box width='50%' paddingRight='6rem'>
             <TransactionForm />
-          </AccordionPanel>
-        </AccordionItem>
-
-        <AccordionItem>
-          <AccordionHeader>
-            <Box flex='1' textAlign='left'>
-              List of transactions
-            </Box>
-            <AccordionIcon />
-          </AccordionHeader>
-          <AccordionPanel>
+          </Box>
+          <Divider orientation='vertical' />
+          <Box width='50%' paddingLeft='6rem'>
             <TransactionsList />
-          </AccordionPanel>
-        </AccordionItem>
-      </Accordion>
-    </Box>
-
-    <Box display={['none', 'none', 'block']}>
-      <Box display='flex' marginBottom='2rem'>
-        <Box width='50%' paddingRight='6rem'>
-          <TransactionForm />
+          </Box>
         </Box>
-        <Divider orientation='vertical' />
-        <Box width='50%' paddingLeft='6rem'>
-          <TransactionsList />
-        </Box>
-      </Box>
-    </Box>
-  </Suspense>
-);
+      )}
+    </Suspense>
+  );
+};
