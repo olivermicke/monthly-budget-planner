@@ -13,6 +13,7 @@
     "jest": true
   },
   "rules": {
+    "linebreak-style": "error",
     "@typescript-eslint/ban-ts-ignore": "off",
     "@typescript-eslint/no-use-before-define": ["error", { "variables": false, "typedefs": false }],
     "prettier/prettier": ["error", { "singleQuote": true }]

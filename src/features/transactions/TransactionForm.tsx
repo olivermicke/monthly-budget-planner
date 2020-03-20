@@ -105,7 +105,6 @@ export const TransactionForm: FunctionComponent<{}> = () => {
               marginRight='2rem'
               max={Number.MAX_SAFE_INTEGER}
               min={0.01}
-              // @ts-ignore
               onChange={(amount: number): void => {
                 setAmount(amount);
               }}
